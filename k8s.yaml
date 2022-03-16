@@ -41,8 +41,7 @@ metadata:
 spec:
   rules:
     # https://docs.microsoft.com/en-us/azure/aks/http-application-routing
-    - host: levelupdevops.EKS_URL
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
