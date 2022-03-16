@@ -34,5 +34,5 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOC_URL }}/backend_api:${{ github.sha }} .
           docker push ${{ secrets.DOC_URL }}/backend_api:${{ github.sha }}
-          sed -i'' -e 's/DOC_URL/${{ secrets.DOC_URL }}/g' -e 's/EKS_URL/${{ secrets.EKS_URL }}/g' -e 's/IMAGE_LABEL/${{ github.sha }}/g' k8s.yaml
+          sed -i'' -e 's/DOC_URL/${{ secrets.DOC_URL }}/g' -e 's/IMAGE_LABEL/${{ github.sha }}/g' k8s.yaml
           kubectl apply -f k8s.yaml
