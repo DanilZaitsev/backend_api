@@ -18,9 +18,9 @@ jobs:
       - name: Docker Login
         uses: docker/login-action@v1.14.1
         with:
-          registry: ${{ secrets.DOC_URL }}
-          username: ${{ secrets.DOC_USERNAME }}
-          password: ${{ secrets.DOC_PASSWORD }}
+          registry: ${{ secrets.ECR_REGISTRY }}
+          username: ${{ secrets.ECR_USERNAME }}
+          password: ${{ secrets.ECR_PASSWORD }}
           logout: true
           
       - name: Kubernetes Set Context
