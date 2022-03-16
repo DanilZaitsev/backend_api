@@ -28,7 +28,14 @@ jobs:
           method: kubeconfig
           # Contents of kubeconfig file
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
+          
+      - name: "Configure AWS Credentials"
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECR_USERNAME }}
+          aws-secret-access-key: ${{ secrets.ECR_PASSWORD }}
+          aws-region: us-east-1
+    
       - name: Docker build & push, Kubernetes apply
         run: |
           docker build -t ${{ secrets.DOC_URL }}/backend_api:${{ github.sha }} .
