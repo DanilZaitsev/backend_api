@@ -21,7 +21,6 @@ jobs:
           registry: ${{ secrets.ECR_REGISTRY }}
           username: ${{ secrets.ECR_USERNAME }}
           password: ${{ secrets.ECR_PASSWORD }}
-          logout: true
           
       - name: Kubernetes Set Context
         uses: Azure/k8s-set-context@v2
