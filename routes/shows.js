@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
 
         response_count++;
         if (response_count === 2)
-            res.send('DDD1' + JSON.stringify(merged));
+            res.send('DDD2' + JSON.stringify(merged));
     }
 
     const id = req.query.id ? req.query.id : '';
