@@ -34,10 +34,10 @@ jobs:
           # Contents of kubeconfig file
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
           
-      - name: AWS cli install action
+      - name: install-aws-cli-action
         # You may pin to the exact commit or the version.
-        # uses: chrislennon/action-aws-cli@1347f1da2852be38fdbea5e6e336f1e297fec7a0
-        uses: chrislennon/action-aws-cli@1.1
+        # uses: unfor19/install-aws-cli-action@e786ee11551d6144a26e07093b48cd851e860106
+        uses: unfor19/install-aws-cli-action@v1.0.2
           
 #       - name: "Configure AWS Credentials"
 #         uses: aws-actions/configure-aws-credentials@v1
