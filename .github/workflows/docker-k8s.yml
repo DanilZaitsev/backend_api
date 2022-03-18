@@ -38,6 +38,11 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: aws-actions/setup-sam@0578b2f57e540e67233c3ce0c5477ee36938ff3d
         uses: aws-actions/setup-sam@v1
+        with:
+          # The AWS SAM CLI version to install
+          version: 1.18.0 # optional
+          # The Python interpreter to use for AWS SAM CLI
+          python: 3 # optional
           
 #       - name: "Configure AWS Credentials"
 #         uses: aws-actions/configure-aws-credentials@v1
