@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: my-runner
+    runs-on: runner-866454cd9f-rkxtk
     steps:
     
       - uses: actions/checkout@v2
