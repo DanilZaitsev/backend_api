@@ -27,12 +27,12 @@ jobs:
           # Version of kubectl
           version: latest # default is latest
           
-#       - name: Kubernetes Set Context
-#         uses: Azure/k8s-set-context@v2
-#         with:
-#           method: kubeconfig
-#           # Contents of kubeconfig file
-#           kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      - name: Kubernetes Set Context
+        uses: Azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          # Contents of kubeconfig file
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
           
 #       - name: "Configure AWS Credentials"
 #         uses: aws-actions/configure-aws-credentials@v1
