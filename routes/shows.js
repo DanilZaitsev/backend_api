@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
 
         response_count++;
         if (response_count === 2)
-            res.send('EEEEEEE Obaldeti' + JSON.stringify(merged));
+            res.send('EEEEEEE Obaldeti2' + JSON.stringify(merged));
     }
 
     const id = req.query.id ? req.query.id : '';
