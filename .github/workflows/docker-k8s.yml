@@ -34,15 +34,10 @@ jobs:
           # Contents of kubeconfig file
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
           
-      - name: Setup AWS SAM CLI
+      - name: AWS CLI
         # You may pin to the exact commit or the version.
-        # uses: aws-actions/setup-sam@0578b2f57e540e67233c3ce0c5477ee36938ff3d
-        uses: aws-actions/setup-sam@v1
-        with:
-          # The AWS SAM CLI version to install
-          version: 1.18.0 # optional
-          # The Python interpreter to use for AWS SAM CLI
-          python: 3 # optional
+        # uses: ItsKarma/aws-cli@820b0dff33bbd9c699e98194864788bbc69f8a58
+        uses: ItsKarma/aws-cli@v1.70.0
           
 #       - name: "Configure AWS Credentials"
 #         uses: aws-actions/configure-aws-credentials@v1
