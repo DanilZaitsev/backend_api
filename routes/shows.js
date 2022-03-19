@@ -5,6 +5,9 @@ var request = require('request');
 /* GET home page. */
 router.get('/', function (req, res, next) {
     console.log(req.query);
+    
+    return res.send('Privetiki');
+    
     // EXAMPLE without Q -> less cpu usage
     let response_count = 0;
     const merged = {};
