@@ -6,7 +6,7 @@ var request = require('request');
 router.get('/', function (req, res, next) {
     console.log(req.query);
     
-    return res.send('Любовь моя');
+    return res.send('Hi All');
     
     // EXAMPLE without Q -> less cpu usage
     let response_count = 0;
