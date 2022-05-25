@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: runner
+  namespace: gitaction
+  labels:
+    app: runner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: runner
+  template:
+    metadata:
+      labels:
+        app: runner
+    spec:
+      containers:
+        - name: runner
+          image: harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:1.0.0-1
+          env:
+            - name: DOCKER_HOST
+              value: tcp://dind.docker-in-docker:2376
+            - name: GITHUB_OWNER
+              value: DanilZaitsev
+            - name: GITHUB_REPOSITORY
+              value: backend_api
+            - name: GITHUB_PAT
+              valueFrom:
+                secretKeyRef:
+                  name: github-secret
+                  key: GITHUB_PERSONAL_TOKEN
