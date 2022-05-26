@@ -14,4 +14,4 @@ jobs:
       - uses: actions/checkout@v2    
       - name: Docker build & push, Kubernetes apply
         run: |
-          docker pull harbor.tsl.telus.com/oe-b2b-evs/ivs-ui:1.0.0-20
+          docker ps
