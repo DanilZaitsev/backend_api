@@ -37,6 +37,3 @@ jobs:
           sudo docker build -t ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }} .
           sudo docker push ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }}
           helm upgrade --install --history-max 5 --namespace oe-b2b-evs-dv cicdtestrelease --set DOC_URL=${{ secrets.DOC_URL }} --set IMAGE_LABEL=${{ github.sha }} chart/alert
-          kubectl get pods -n oe-b2b-evs-dv| grep
-#          sudo docker build -t harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:test .
-#          sudo docker push harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:test
