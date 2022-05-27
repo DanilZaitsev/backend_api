@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: runner
-  namespace: gitaction
+  namespace: oe-b2b-evs-dv
   labels:
     app: runner
 spec:
@@ -15,12 +15,26 @@ spec:
       labels:
         app: runner
     spec:
+      volumes:
+        - name: docker-sock
+          hostPath:
+            path: /var/run
       containers:
         - name: runner
-          image: harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:1.0.0-1
+          image: harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:1.0.0-16
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 2Gi
+          volumeMounts:
+            - mountPath: /var/run
+              name: docker-sock
           env:
             - name: DOCKER_HOST
-              value: tcp://dind.docker-in-docker:2376
+              value: NULL
             - name: GITHUB_OWNER
               value: DanilZaitsev
             - name: GITHUB_REPOSITORY
@@ -30,3 +44,20 @@ spec:
                 secretKeyRef:
                   name: github-secret
                   key: GITHUB_PERSONAL_TOKEN
+            - name: harbor_url
+              valueFrom:
+                secretKeyRef:
+                  name: github-secret
+                  key: harbor_url
+            - name: harbor_username
+              valueFrom:
+                secretKeyRef:
+                  name: github-secret
+                  key: harbor_username
+            - name: harbor_password
+              valueFrom:
+                secretKeyRef:
+                  name: github-secret
+                  key: harbor_password
+      imagePullSecrets:
+        - name: regcred

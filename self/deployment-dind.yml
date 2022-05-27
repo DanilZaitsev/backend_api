@@ -1,3 +1,8 @@
+# DEPRECATED by me, using docker.sock
+# ***************************************************************************************
+
+
+
 #apiVersion: v1
 #kind: PersistentVolumeClaim
 #metadata:
@@ -14,7 +19,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: dind
-  namespace: docker-in-docker
+  namespace: oe-b2b-evs-dv
 spec:
   type: ClusterIP
   selector:
@@ -28,7 +33,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dind
-  namespace: docker-in-docker
+  namespace: oe-b2b-evs-dv
 spec:
   replicas: 1
   selector:
@@ -39,6 +44,8 @@ spec:
       labels:
         workload: deployment-docker-in-docker-dind
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - command:
             - dockerd
@@ -46,10 +53,31 @@ spec:
             - --host=tcp://0.0.0.0:2376
           env:
             - name: DOCKER_TLS_CERTDIR
+            - name: harbor_url
+              valueFrom:
+                secretKeyRef:
+                  name: github-secret
+                  key: harbor_url
+            - name: harbor_username
+              valueFrom:
+                secretKeyRef:
+                  name: github-secret
+                  key: harbor_username
+            - name: harbor_password
+              valueFrom:
+                secretKeyRef:
+                  name: github-secret
+                  key: harbor_password
           image: docker:19.03.12-dind
           imagePullPolicy: IfNotPresent
           name: dind
-          resources: {}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 2Gi
           securityContext:
             privileged: true
             readOnlyRootFilesystem: false

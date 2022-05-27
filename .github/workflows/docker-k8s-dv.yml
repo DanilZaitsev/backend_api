@@ -3,7 +3,7 @@ name: Docker Build & Push, Kubernetes Apply
 on:
   push:
     branches: 
-    - main
+    - dev
 
   workflow_dispatch:
 
@@ -22,7 +22,6 @@ jobs:
 
       - name: Docker build & push, Kubernetes apply
         run: |
-          sudo docker build -t ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }} -t ${{ secrets.DOC_URL }}/ivs-runner:pt .
+          sudo docker build -t ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }} .
           sudo docker push ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }}
-          sudo docker push ${{ secrets.DOC_URL }}/ivs-runner:pt
-          helm upgrade --install --history-max 5 --namespace oe-b2b-evs-pt cicdtestrelease --set namespace=oe-b2b-evs-pt --set DOC_URL=${{ secrets.DOC_URL }} --set IMAGE_LABEL=${{ github.sha }} chart/alert
+          helm upgrade --install --history-max 5 --namespace oe-b2b-evs-dv cicdtestrelease --set DOC_URL=${{ secrets.DOC_URL }} --set IMAGE_LABEL=${{ github.sha }} chart/alert
