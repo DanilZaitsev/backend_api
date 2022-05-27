@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: levelupdevops
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: levelupdevops
+  template:
+    metadata:
+      labels:
+        app: levelupdevops
+        version: {{ .Values.IMAGE_LABEL }}
+    spec:
+      containers:
+        - name: levelupdevops
+          image: '{{ .Values.DOC_URL }}/ivs-runner:{{ .Values.IMAGE_LABEL }}'
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 500m
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: levelupdevops
+  namespace: {{ .Values.namespace }}
+spec:
+  type: ClusterIP
+  selector:
+    app: levelupdevops
+  ports:
+    - port: 80
+      targetPort: 3000
