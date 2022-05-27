@@ -14,4 +14,4 @@ jobs:
       - uses: actions/checkout@v2    
       - name: Docker build & push, Kubernetes apply
         run: |
-          docker ps
+          sudo docker ps
