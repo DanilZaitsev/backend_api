@@ -11,8 +11,23 @@ jobs:
   build:
     runs-on: [self-hosted]
     steps:
-      - uses: actions/checkout@v2    
+      - uses: actions/checkout@v2
+      
+      - name: Kubectl tool installer
+        uses: Azure/setup-kubectl@v2.1
+        with:
+          # Version of kubectl
+          version: latest # default is latest
+          
+      - name: Kubernetes Set Context
+        uses: Azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          # Contents of kubeconfig file
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+          
       - name: Docker build & push, Kubernetes apply
         run: |
-          sudo docker build -t harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:test .
-          sudo docker push harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:test
+          kubectl get pods -n oe-b2b-evs-dv
+#          sudo docker build -t harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:test .
+#          sudo docker push harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:test
