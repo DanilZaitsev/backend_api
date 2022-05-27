@@ -26,8 +26,15 @@ jobs:
           # Contents of kubeconfig file
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
           
+      - name: Helm tool installer
+        uses: Azure/setup-helm@v2.0
+        with:
+          # Version of helm
+          version: latest
+    
       - name: Docker build & push, Kubernetes apply
         run: |
+          helm list
           sudo docker build -t ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }} .
           sudo docker push ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }}
           sed -i'' -e 's/DOC_URL/${{ secrets.DOC_URL }}/g' -e 's/IMAGE_LABEL/${{ github.sha }}/g' k8s.yaml
