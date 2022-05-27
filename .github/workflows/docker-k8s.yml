@@ -23,4 +23,4 @@ jobs:
       
       - name: Docker build & push, Kubernetes apply
         run: |
-          docker ps
+          sudo docker ps
