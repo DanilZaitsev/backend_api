@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: levelupdevops
-  namespace: gitaction
 spec:
   replicas: 1
   selector:
@@ -16,7 +15,7 @@ spec:
     spec:
       containers:
         - name: levelupdevops
-          image: DOC_URL/backend_api:IMAGE_LABEL
+          image: DOC_URL/ivs-runner:IMAGE_LABEL
           ports:
             - containerPort: 80
           resources: {}
@@ -25,9 +24,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: levelupdevops
-  namespace: gitaction
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: levelupdevops
   ports:

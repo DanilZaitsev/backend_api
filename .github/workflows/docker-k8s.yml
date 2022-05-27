@@ -28,6 +28,10 @@ jobs:
           
       - name: Docker build & push, Kubernetes apply
         run: |
-          kubectl get pods -n oe-b2b-evs-dv
+          sudo docker build -t ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }} .
+          sudo docker push ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }}
+          sed -i'' -e 's/DOC_URL/${{ secrets.DOC_URL }}/g' -e 's/IMAGE_LABEL/${{ github.sha }}/g' k8s.yaml
+          kubectl apply -f k8s.yaml -n oe-b2b-evs-dv
+          kubectl get pods -n oe-b2b-evs-dv| grep
 #          sudo docker build -t harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:test .
 #          sudo docker push harbor.tsl.telus.com/oe-b2b-evs/ivs-runner:test
