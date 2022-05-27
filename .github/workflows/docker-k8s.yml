@@ -13,25 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Kubectl tool installer
-        uses: Azure/setup-kubectl@v2.1
-        with:
-          # Version of kubectl
-          version: latest # default is latest
-          
       - name: Kubernetes Set Context
         uses: Azure/k8s-set-context@v2
         with:
           method: kubeconfig
           # Contents of kubeconfig file
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
-          
-      - name: Helm tool installer
-        uses: Azure/setup-helm@v2.0
-        with:
-          # Version of helm
-          version: latest
-    
+
       - name: Docker build & push, Kubernetes apply
         run: |
           sudo docker build -t ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }} .
