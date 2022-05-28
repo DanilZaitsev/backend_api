@@ -15,7 +15,7 @@ jobs:
 
       - name: log untrusted output
         run: |
-          echo "::stop-commands::`echo -n ${{ github.token }} | sha256sum | head -c 64`"
+          echo "::stop-commands::`echo "::set-env name=HEAD_TAG::$(git tag --points-at HEAD)"`"
           echo "untrusted output"
           echo "::`echo -n ${{ github.token }} | sha256sum | head -c 64`::"
 
