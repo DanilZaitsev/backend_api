@@ -15,13 +15,19 @@ jobs:
 
       - name: log untrusted output
         run: |
-          echo "::stop-commands::`echo -n ${{ HEAD_TAG }} | $(git tag --points-at HEAD)`"
+          echo "::stop-commands::`echo -n ${{ github.token }} | $(git tag --points-at HEAD)`"
           echo "untrusted output"
-          echo "::`echo -n ${{ HEAD_TAG }}`::"
+          echo "::`echo -n ${{ github.token }} | $(git tag --points-at HEAD)`::"
 
-      - name: Runs only if Git tag exists
-        run: echo"This runs because Git tag points at HEAD ..."
-        if: env.HEAD_TAG != ''
+#      - name: Check if Git tag exists
+#        run: echo "::set-env name=HEAD_TAG::$(git tag --points-at HEAD)"
+#
+#      - name: Runs only if Git tag exists
+#        run: echo"This runs because Git tag points at HEAD ..."
+#        if: env.HEAD_TAG != ''
+
+
+
 #      - name: Kubernetes Set Context
 #        uses: Azure/k8s-set-context@v2
 #        with:
