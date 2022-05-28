@@ -12,16 +12,23 @@ jobs:
     runs-on: [self-hosted]
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Kubernetes Set Context
-        uses: Azure/k8s-set-context@v2
+      - name: List tags
+        uses: localazy/tag@v1
         with:
-          method: kubeconfig
-          # Contents of kubeconfig file
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
-      - name: Docker build & push, Kubernetes apply
-        run: |
-          sudo docker build -t ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }} .
-          sudo docker push ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }}
-          helm upgrade --install --history-max 5 --namespace oe-b2b-evs-dv cicdtestrelease --set DOC_URL=${{ secrets.DOC_URL }} --set IMAGE_LABEL=${{ github.sha }} chart/alert
+          list: true
+      - name: Publish new-tag
+        uses: localazy/tag@v1
+        with:
+          publish: 'new-tag'
+#      - name: Kubernetes Set Context
+#        uses: Azure/k8s-set-context@v2
+#        with:
+#          method: kubeconfig
+#          # Contents of kubeconfig file
+#          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+#
+#      - name: Docker build & push, Kubernetes apply
+#        run: |
+#          sudo docker build -t ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }} .
+#          sudo docker push ${{ secrets.DOC_URL }}/ivs-runner:${{ github.sha }}
+#          helm upgrade --install --history-max 5 --namespace oe-b2b-evs-dv cicdtestrelease --set DOC_URL=${{ secrets.DOC_URL }} --set IMAGE_LABEL=${{ github.sha }} chart/alert
